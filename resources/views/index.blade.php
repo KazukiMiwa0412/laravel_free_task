@@ -13,12 +13,27 @@
         
     </head>
     <body>
-        <h1>Blog Name</h1>
-        <div class='products'>
-            <div class='product'>
-                <h2 class='title'>Title</h2>
-                <p class='body'>This is a sample body.</p>
-            </div>
+        <h1>ファイルアップロード</h1>
+        @if (session('success'))
+            <p>{{ session('success') }}</p>
+        @endif
+        
+        <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <label>画像選択<input type="file" name="img" accept=".png,.jpg,.jpeg,image/png,image/jpg"></label>
+            <br>
+            <input type="text" value="商品名" name="pro_name">
+            <br>
+            <input type="submit" value="送信">
+        </form>
+        <div class="products">
+            @foreach ($products as $product)
+                <div class="product">
+                    <h2>{{ $product -> pro_name }}</h2>
+                    <img src="{{ 'storage/image/' . $product->file_name }}"  width="128" height="128">
+                </div>
+            @endforeach
         </div>
+        
     </body>
 </html>

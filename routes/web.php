@@ -11,7 +11,4 @@
 |
 */
 
-Route::get('/products', 'ProductController@index');
-Route::get('/', function() {
-    return view('index');
-});
+Route::resource('products','ProductController');
