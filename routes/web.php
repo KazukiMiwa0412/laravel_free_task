@@ -12,3 +12,4 @@
 */
 
 Route::resource('products','ProductController');
+Route::get('/','ProductController@index');
