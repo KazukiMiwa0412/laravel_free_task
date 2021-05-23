@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index(Product $product)
     {
         //$product->where('pro_id', 1)->update(['file_name' => 'storage/sample_pic.jpg']);
-        return view('index')->with(['products' => $product->get()]);
+        return view('products.index')->with(['products' => $product->get()]);
     }
 
     /**
@@ -38,8 +38,8 @@ class ProductController extends Controller
     {
         // $request->imgはformのinputのname='img'の値です
         // ->storeメソッドは別途説明記載します
-        
         $path = $request->img->store($dir_path);
+        
         // パスから、最後の「ファイル名.拡張子」の部分だけ取得します 例)sample.jpg
         $filename = basename($path);
         // FileImageをインスタンス化(実体化)します
@@ -47,7 +47,7 @@ class ProductController extends Controller
         // 登録する項目に必要な値を代入します
         $data->file_name = $filename;
         $data->pro_name = $request->pro_name;
-        $data->pro_rest = "5";
+        $data->pro_rest = 5;
         // データベースに保存します
         $data->save();
 
@@ -64,7 +64,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view("show")->with(['product'=>$product]);
+        return view("products.show")->with(['product'=>$product]);
     }
 
     /**
@@ -85,9 +85,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request , $id)
     {
-        //
+        //dd((int)$request['product']['pro_rest']-(int)$request->num_of_purchase);
+        $product = Product::find($id);
+        $product->pro_rest=(int)$product->pro_rest-(int)$request->num_of_purchase;
+        $product->save();
+        return view("products.show")->with(['product'=>$product]);
+        
     }
 
     /**
@@ -100,4 +105,6 @@ class ProductController extends Controller
     {
         //
     }
+    
+    
 }
