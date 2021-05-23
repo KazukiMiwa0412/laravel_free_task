@@ -35,8 +35,8 @@
         <div class="products">
             @foreach ($products as $product)
                 <div class="product">
-                    <h2>{{ $product -> pro_name }}</h2>
-                    <img src="{{ 'storage/image/' . $product->file_name }}"  width="128" height="128">
+                    <img src="{{ '../storage/image/' . $product->file_name }}"  width="128" height="128">
+                    <p><a href="{{ route('products.show',$product->id) }}">{{ $product -> pro_name }}</a></p>
                 </div>
             @endforeach
         </div>
