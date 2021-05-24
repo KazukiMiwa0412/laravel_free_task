@@ -108,5 +108,24 @@ class ProductController extends Controller
         //
     }
     
+    public function upload()
+    {
+        return view('products.upload');
+    }
+    
+    public function search(Request $request)
+    {
+        $request->validate([
+            'search'=>'required'
+        ]);
+        $product = Product::where('pro_name','like',"%$request->search%")
+                        ->orderBy('updated_at', 'ASC')
+                        ->paginate(10);
+        
+        $search_result = $request->search.'の件数は'.$product->total().'件です。';
+        return view('products.index')->with(['products' => $product,'search_result'=>$search_result,'search_query'=>$request->search]);  
+       
+        
+    }
     
 }

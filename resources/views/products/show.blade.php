@@ -1,3 +1,5 @@
+@extends('layouts.layout')
+@section('child')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -7,9 +9,6 @@
         <title>Laravel</title>
         <!-- Styles -->
         <style>
-            .rest_content {
-                
-            }
         </style>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -27,12 +26,12 @@
                     @csrf
                     @method('PUT')
                     <input type="text" name="num_of_purchase">
+                    <input type="submit" value="送信">
                     @error('num_of_purchase')
                         <span class="" role="alert" style="color:red;">
-                            <strong><br>{{ $message }}</strong>
+                            <strong><br>{{ $message }}<br></strong>
                         </span>
                     @enderror
-                    <input type="submit" value="送信">
                 </form>
             </dev>
         @else
@@ -40,3 +39,5 @@
         @endif
     </body>
 </html>
+
+@endsection

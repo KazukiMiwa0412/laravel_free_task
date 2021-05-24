@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+@section('child')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -11,6 +14,10 @@
                 display: grid;
                 grid-template-columns: 200px 200px ;
             }
+            
+            .search{
+                margin:20px;
+            }
         </style>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -19,19 +26,16 @@
         
     </head>
     <body>
-        <h1>ファイルアップロード</h1>
-        @if (session('success'))
-            <p>{{ session('success') }}</p>
-        @endif
-        
-        <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <label>画像選択<input type="file" name="img" accept=".png,.jpg,.jpeg,image/png,image/jpg"></label>
-            <br>
-            <input type="text" value="商品名" name="pro_name">
-            <br>
-            <input type="submit" value="送信">
+        <form action="{{ route('products.search') }}" method="get" class="search">
+            <input type="text" name="search" placeholder="search" value="">
+            <button type="submit">検索</button>
+            @error('search')
+                <span class="" role="alert" style="color:red;">
+                    <strong><br>{{ $message }}</strong>
+                </span>
+            @enderror
         </form>
+        
         <div class="products">
             @foreach ($products as $product)
                 <div class="product">
@@ -43,3 +47,5 @@
         
     </body>
 </html>
+
+@endsection
