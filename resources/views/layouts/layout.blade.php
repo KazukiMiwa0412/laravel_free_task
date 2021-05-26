@@ -137,11 +137,28 @@
                 <div class="menu-content">
                     <ul>
                         <li>
+                            <h2 class="login_user">{{ Auth::user()->name }}</h2>
+                        </li>
+                        <li>
                             <a href="{{ route('products.index') }}">TOPへ</a>
                         </li>
                         <li>
                             <a href="{{ route('products.upload') }}">画像アップロード</a>
                         </li>
+                        <li>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    {{ __('ログアウト') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                        
                     </ul>
                 </div>
             </div>

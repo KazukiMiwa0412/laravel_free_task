@@ -14,4 +14,7 @@
 Route::resource('products','ProductController');
 Route::get('/upload','ProductController@upload')->name('products.upload');
 Route::get('/search','ProductController@search')->name('products.search');
-Route::get('/','ProductController@index');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');

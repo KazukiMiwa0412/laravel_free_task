@@ -88,10 +88,17 @@ class ProductController extends Controller
     public function update(Request $request , $id)
     {
         $product = Product::find($id);
-        (int)$request->validate([
-            'num_of_purchase' => 'required|integer|lt:'.(int)$product->pro_rest
-        ]);
-        $product->pro_rest=(int)$product->pro_rest-(int)$request->num_of_purchase;
+        if(isset($request->num_of_purchase)){
+            (int)$request->validate([
+                'num_of_purchase' => 'required|integer|lt:'.(int)$product->pro_rest
+            ]);
+            $product->pro_rest=(int)$product->pro_rest-(int)$request->num_of_purchase;
+        }elseif(isset($request->addition)){
+            (int)$request->validate([
+                'addition' => 'required|integer'
+            ]);
+            $product->pro_rest=(int)$product->pro_rest+(int)$request->addition;
+        }
         $product->save();
         return view("products.show")->with(['product'=>$product]);
         

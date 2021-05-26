@@ -26,6 +26,7 @@
         
     </head>
     <body>
+        
         <form action="{{ route('products.search') }}" method="get" class="search">
             <input type="text" name="search" placeholder="search" value="">
             <button type="submit">検索</button>
